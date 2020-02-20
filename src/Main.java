@@ -16,69 +16,101 @@ public class Main {
 
     static ArrayList<Library> libsOriginal;
 
+    static int outputNo = 0;
+
     public static void main( String args[]){
 
-        prepareData();
+        outputNo = 0;
+        while( outputNo < 6){
+            books = new ArrayList<>();
+            libs = new ArrayList<>();
+            libsOriginal = new ArrayList<>();
 
-//        System.out.println( bookCount);
-//        System.out.println( libCount);
-//        System.out.println( dayCount);
-//        System.out.println( books.size());
-//        System.out.println( libs.size());
+            System.out.println( "Output no: " + outputNo);
+            prepareData();
 
-        //Step 1
-        populateBooks();
-        orderLibInBooksBySignUpTime();
-        cleanUpLibraries();
+            //Step 1
+            populateBooks();
+            orderLibInBooksBySignUpTime();
+            cleanUpLibraries();
 
-        //Step 2
-        fitInTimeLine();
+            //Step 2
+            fitInTimeLine();
 
-        //Step 3
-        outputData();
+            //Step 3
+            outputData();
 
+            outputNo++;
+        }
     }
 
     //Parsing input
     public static void prepareData(){
+        int lineno = 0;
         try {
-
-            File file = new File( "src/inputs/a_example.txt");
-//            File file = new File( "src/inputs/b_read_on.txt");
-//            File file = new File( "src/inputs/c_incunabula.txt");
+            File file = null;
+            switch ( outputNo){
+                case 0:
+                    file = new File( "src/inputs/a_example.txt");
+                    break;
+                case 1:
+                    file = new File( "src/inputs/b_read_on.txt");
+                    break;
+                case 2:
+                    file = new File( "src/inputs/c_incunabula.txt");
+                    break;
+                case 3:
+                    file = new File( "src/inputs/d_tough_choices.txt");
+                    break;
+                case 4:
+                    file = new File( "src/inputs/e_so_many_books.txt");
+                    break;
+                case 5:
+                    file = new File( "src/inputs/f_libraries_of_the_world.txt");
+                    break;
+            }
 
             Scanner input = new Scanner(file);
 
             String line = input.nextLine();
+            ++lineno;
             String[] i = line.split(" ");
             bookCount = Integer.parseInt( i[0]);
             libCount = Integer.parseInt( i[1]);
             dayCount = Integer.parseInt( i[2]);
 
             line = input.nextLine();
+            ++lineno;
             i = line.split(" ");
             for( int a = 0; a < bookCount; a++){
                 books.add( new Book( a, Integer.parseInt( i[a])));
             }
 
-            int libCount = 0;
+            int libCountCurrent = 0;
             while (input.hasNextLine()) {
                 line = input.nextLine();
+                if( line == null || line.equals("")){
+                    break;
+                }
+
+                ++lineno;
                 i = line.split(" ");
-                libs.add( new Library( libCount, Integer.parseInt( i[0]), Integer.parseInt( i[1]), Integer.parseInt( i[2])));
+                libs.add( new Library( libCountCurrent, Integer.parseInt( i[0]), Integer.parseInt( i[1]), Integer.parseInt( i[2])));
 
                 line = input.nextLine();
+                ++lineno;
                 i = line.split(" ");
                 for( int a = 0; a < i.length; a++){
                     libs.get( libs.size() - 1).books.add( books.get( Integer.parseInt( i[a])));
                 }
 
-                libCount++;
+                libCountCurrent++;
             }
             input.close();
 
         } catch (Exception ex) {
             ex.printStackTrace();
+            System.out.println( "line: " + lineno);
         }
     }
 
@@ -139,7 +171,7 @@ public class Main {
         }
 
         libsOriginal = libs;
-        libs = new ArrayList<>(libs.subList( 0, splitIndex)); //TODO this
+        libs = new ArrayList<>(libsOriginal.subList( 0, splitIndex)); //TODO this
 
         Collections.sort(libs, new Comparator<Library>() {
             @Override
@@ -154,12 +186,47 @@ public class Main {
 
     public static void outputData(){
         try{
-            PrintWriter writer = new PrintWriter("src/output/output_a.txt", "UTF-8");
-            writer.println("The first line");
-            writer.println("The second line");
+            PrintWriter writer = null;
+            switch (outputNo){
+                case 0:
+                    writer = new PrintWriter("src/output/output_a.txt");
+                    break;
+                case 1:
+                    writer = new PrintWriter("src/output/output_b.txt");
+                    break;
+                case 2:
+                    writer = new PrintWriter("src/output/output_c.txt");
+                    break;
+                case 3:
+                    writer = new PrintWriter("src/output/output_d.txt");
+                    break;
+                case 4:
+                    writer = new PrintWriter("src/output/output_e.txt");
+                    break;
+                case 5:
+                    writer = new PrintWriter("src/output/output_f.txt");
+                    break;
+
+            }
+
+            writer.print("");
+            writer.println( "" + libs.size());
+
+            for( int i = 0; i < libs.size(); i++){
+                writer.println( "" + libs.get( i).id + " " + libs.get( i).books.size()); //TODO this
+                String out = "";
+                for( int j = 0; j < libs.get( i).books.size(); j++){
+                    out += libs.get( i).books.get(j).id;
+                    if( j < libs.get( i).books.size() - 1){
+                        out += " ";
+                    }
+                }
+                writer.println( out);
+            }
+
             writer.close();
         } catch( Exception e){
-
+            System.out.println( "Exception: " + e.toString());
         }
     }
 
