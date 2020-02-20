@@ -81,17 +81,14 @@ public class Main {
     //Step 1.2
     public static void orderLibInBooksBySignUpTime(){
         for (int i = 0; i < libCount; i++) {
-            Collections.sort(books.get(libCount).libs, new CustomComparator());
-        }
-    }
-
-    // Custom Comparator
-    public static class CustomComparator implements Comparator<Library> {
-        @Override
-        public int compare(Library o1, Library o2) {
-            Integer a = new Integer(o1.signUpTime);
-            Integer b = new Integer(o2.signUpTime);
-            return a.compareTo(b);
+            Collections.sort(books.get(libCount).libs, new Comparator<Library>(){
+                @Override
+                public int compare(Library o1, Library o2) {
+                    Integer a = new Integer(o1.signUpTime);
+                    Integer b = new Integer(o2.signUpTime);
+                    return a.compareTo(b);
+                }
+            });
         }
     }
 
