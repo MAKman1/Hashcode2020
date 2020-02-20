@@ -26,9 +26,6 @@ public class Main {
 
         //Step 1
         populateBooks();
-        for (Book book: books) {
-            System.out.println(book.libs.get(0).bookCount);
-        }
         orderLibInBooksBySignUpTime();
         cleanUpLibraries();
     }
