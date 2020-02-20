@@ -30,6 +30,7 @@ public class Main {
             System.out.println(" " + books.get(0).libs.get(i).id);
         }
 
+        orderLibInBooksBySignUpTime();
         cleanUpLibraries();
         for (int i = 0; i < books.get(0).libs.size(); i++ ) {
             System.out.println(" " + books.get(0).libs.get(i).id);
@@ -97,6 +98,20 @@ public class Main {
     }
 
     //Step 1.2
+    public static void orderLibInBooksBySignUpTime(){
+        for (int i = 0; i < bookCount; i++) {
+            Collections.sort(books.get(i).libs, new Comparator<Library>(){
+                @Override
+                public int compare(Library o1, Library o2) {
+                    Integer a = new Integer(o1.signUpTime);
+                    Integer b = new Integer(o2.signUpTime);
+                    return a.compareTo(b);
+                }
+            });
+        }
+    }
+
+    //Step 1.3
     public static void cleanUpLibraries(){
         for (int i = 0; i < bookCount; i++) {
             ArrayList<Library> updatedLibs = new ArrayList<Library>(books.get(i).libs.subList(0, 1));
