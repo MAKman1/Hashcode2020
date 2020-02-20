@@ -139,7 +139,7 @@ public class Main {
         }
 
         libsOriginal = libs;
-        libs = new ArrayList<>(libs.subList( 0, splitIndex));
+        libs = new ArrayList<>(libs.subList( 0, splitIndex)); //TODO this
 
         Collections.sort(libs, new Comparator<Library>() {
             @Override
