@@ -7,6 +7,7 @@ public class Library {
     int processLimit;
 
     int sortProduct;
+    int score = 0;
 
     ArrayList<Book> books;
 
@@ -18,5 +19,11 @@ public class Library {
 
         this.sortProduct = bookCount / processLimit;
         this.books = new ArrayList<>();
+    }
+
+    public void calculateScore(){
+        for( int i = 0; i < books.size(); i++){
+            this.score += books.get( i).score;
+        }
     }
 }

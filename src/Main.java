@@ -133,6 +133,9 @@ public class Main {
 
     //Step 1.2
     public static void orderLibInBooksBySignUpTime(){
+        for (int i = 0; i < libs.size(); i++) {
+            libs.get( i).calculateScore();
+        }
         for (int i = 0; i < bookCount; i++) {
             Collections.sort(books.get(i).libs, new Comparator<Library>(){
                 @Override
@@ -163,32 +166,35 @@ public class Main {
 
     //Step 2.1
     public static void fitInTimeLine(){
-        Collections.sort(libs, new Comparator<Library>() {
-            @Override
-            public int compare(Library o1, Library o2) {
-                Integer a = new Integer(o1.signUpTime);
-                Integer b = new Integer(o2.signUpTime);
-                return a.compareTo(b);
-            }
-        });
-        int splitIndex = 0;
-        int count = 0;
-        while( count < dayCount && splitIndex < libs.size()){
-            count += libs.get( splitIndex).signUpTime;
-            splitIndex++;
+        for (int i = 0; i < libs.size(); i++) {
+            libs.get( i).calculateScore();
         }
-
-        libsOriginal = libs;
-        libs = new ArrayList<>(libsOriginal.subList( 0, splitIndex)); //TODO this
-
         Collections.sort(libs, new Comparator<Library>() {
             @Override
             public int compare(Library o1, Library o2) {
-                Integer a = new Integer(o1.sortProduct);
-                Integer b = new Integer(o2.sortProduct);
+                Integer a = new Integer(o1.score);
+                Integer b = new Integer(o2.score);
                 return a.compareTo(b);
             }
         });
+//        int splitIndex = 0;
+//        int count = 0;
+//        while( count < dayCount && splitIndex < libs.size()){
+//            count += libs.get( splitIndex).signUpTime;
+//            splitIndex++;
+//        }
+//
+//        libsOriginal = libs;
+//        libs = new ArrayList<>(libsOriginal.subList( 0, splitIndex)); //TODO this
+
+//        Collections.sort(libs, new Comparator<Library>() {
+//            @Override
+//            public int compare(Library o1, Library o2) {
+//                Integer a = new Integer(o1.sortProduct);
+//                Integer b = new Integer(o2.sortProduct);
+//                return a.compareTo(b);
+//            }
+//        });
     }
 
 
