@@ -52,16 +52,19 @@ public class Main {
                 books.add( new Book( a, Integer.parseInt( i[a])));
             }
 
+            int libCount = 0;
             while (input.hasNextLine()) {
                 line = input.nextLine();
                 i = line.split(" ");
-                libs.add( new Library( Integer.parseInt( i[0]), Integer.parseInt( i[1]), Integer.parseInt( i[2])));
+                libs.add( new Library( libCount, Integer.parseInt( i[0]), Integer.parseInt( i[1]), Integer.parseInt( i[2])));
 
                 line = input.nextLine();
                 i = line.split(" ");
                 for( int a = 0; a < i.length; a++){
                     libs.get( libs.size() - 1).books.add( books.get( Integer.parseInt( i[a])));
                 }
+
+                libCount++;
             }
             input.close();
 
