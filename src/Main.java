@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -16,7 +17,6 @@ public class Main {
     static ArrayList<Library> libsOriginal;
 
     public static void main( String args[]){
-        System.out.println( "Hi");
 
         prepareData();
 
@@ -153,7 +153,14 @@ public class Main {
 
 
     public static void outputData(){
-        
+        try{
+            PrintWriter writer = new PrintWriter("src/output/output_a.txt", "UTF-8");
+            writer.println("The first line");
+            writer.println("The second line");
+            writer.close();
+        } catch( Exception e){
+
+        }
     }
 
 }
