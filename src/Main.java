@@ -27,6 +27,11 @@ public class Main {
 
     //Step 1.1
     public static void populateBooks(){
+        for (Library library : libs) {
+            for (Book book: library.books) {
+                book.libs.add(library);
+            }
+        }
 
     }
 
