@@ -79,8 +79,15 @@ public class Main {
             for (Book book: library.books) {
                 book.libs.add(library);
             }
+            Collections.sort(library.books, new Comparator<Book>() {
+                @Override
+                public int compare(Book o1, Book o2) {
+                    Integer a = new Integer(o1.score);
+                    Integer b = new Integer(o2.score);
+                    return a.compareTo(b);
+                }
+            });
         }
-
     }
 
     //Step 1.2
