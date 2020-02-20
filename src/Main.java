@@ -101,4 +101,10 @@ public class Main {
     public static void cleanUpLibraries(){
 
     }
+
+    //Step 2.1
+    public static void fitInTimeLine(){
+
+    }
+
 }
