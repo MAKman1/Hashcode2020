@@ -26,6 +26,9 @@ public class Main {
 
         //Step 1
         populateBooks();
+        for (Book book: books) {
+            System.out.println(book.libs.get(0).bookCount);
+        }
         orderLibInBooksBySignUpTime();
         cleanUpLibraries();
     }
@@ -75,6 +78,11 @@ public class Main {
 
     //Step 1.1
     public static void populateBooks(){
+        for (Library library : libs) {
+            for (Book book: library.books) {
+                book.libs.add(library);
+            }
+        }
 
     }
 
