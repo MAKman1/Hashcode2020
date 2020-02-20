@@ -148,8 +148,16 @@ public class Main {
     //Step 1.3
     public static void cleanUpLibraries(){
         for (int i = 0; i < bookCount; i++) {
-            ArrayList<Library> updatedLibs = new ArrayList<Library>(books.get(i).libs.subList(0, 1));
-            books.get(i).libs = updatedLibs;
+            Book current = books.get( i);
+            for( int j = 1; j < current.libs.size(); j++){
+                Library currentLib = current.libs.get( j);
+                for( int k = 0; k < currentLib.books.size(); k++){
+                    if( currentLib.books.get( k).id == current.id){
+                        currentLib.books.remove( k);
+                        k--;
+                    }
+                }
+            }
         }
     }
 
@@ -210,18 +218,27 @@ public class Main {
             }
 
             writer.print("");
-            writer.println( "" + libs.size());
+
+            int libS = libs.size();
+            for( int i = 0; i < libs.size(); i++){
+                if( libs.get( i).books.size() < 1){
+                    libS--;
+                }
+            }
+            writer.println( "" + libS);
 
             for( int i = 0; i < libs.size(); i++){
-                writer.println( "" + libs.get( i).id + " " + libs.get( i).books.size()); //TODO this
-                String out = "";
-                for( int j = 0; j < libs.get( i).books.size(); j++){
-                    out += libs.get( i).books.get(j).id;
-                    if( j < libs.get( i).books.size() - 1){
-                        out += " ";
+                if(libs.get( i).books.size() > 0){
+                    writer.println( "" + libs.get( i).id + " " + libs.get( i).books.size()); //TODO this
+                    String out = "";
+                    for( int j = 0; j < libs.get( i).books.size(); j++){
+                        out += libs.get( i).books.get(j).id;
+                        if( j < libs.get( i).books.size() - 1){
+                            out += " ";
+                        }
                     }
+                    writer.println( out);
                 }
-                writer.println( out);
             }
 
             writer.close();
