@@ -13,6 +13,8 @@ public class Main {
     static ArrayList<Book> books = new ArrayList<>();
     static ArrayList<Library> libs = new ArrayList<>();
 
+    static ArrayList<Library> libsOriginal;
+
     public static void main( String args[]){
         System.out.println( "Hi");
 
@@ -111,7 +113,32 @@ public class Main {
 
     //Step 2.1
     public static void fitInTimeLine(){
+        Collections.sort(libs, new Comparator<Library>() {
+            @Override
+            public int compare(Library o1, Library o2) {
+                Integer a = new Integer(o1.signUpTime);
+                Integer b = new Integer(o2.signUpTime);
+                return a.compareTo(b);
+            }
+        });
+        int splitIndex = 0;
+        int count = 0;
+        while( count < dayCount && splitIndex < libs.size()){
+            count += libs.get( splitIndex).signUpTime;
+            splitIndex++;
+        }
 
+        libsOriginal = libs;
+        libs = new ArrayList<>(libs.subList( 0, splitIndex));
+
+        Collections.sort(libs, new Comparator<Library>() {
+            @Override
+            public int compare(Library o1, Library o2) {
+                Integer a = new Integer(o1.sortProduct);
+                Integer b = new Integer(o2.sortProduct);
+                return a.compareTo(b);
+            }
+        });
     }
 
 }
