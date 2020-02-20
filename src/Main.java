@@ -1,5 +1,7 @@
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Main {
@@ -12,6 +14,8 @@ public class Main {
     static ArrayList<Library> libs = new ArrayList<>();
 
     public static void main( String args[]){
+        System.out.println( "Hi");
+
         prepareData();
 
 //        System.out.println( bookCount);
@@ -51,16 +55,19 @@ public class Main {
                 books.add( new Book( a, Integer.parseInt( i[a])));
             }
 
+            int libCount = 0;
             while (input.hasNextLine()) {
                 line = input.nextLine();
                 i = line.split(" ");
-                libs.add( new Library( Integer.parseInt( i[0]), Integer.parseInt( i[1]), Integer.parseInt( i[2])));
+                libs.add( new Library( libCount, Integer.parseInt( i[0]), Integer.parseInt( i[1]), Integer.parseInt( i[2])));
 
                 line = input.nextLine();
                 i = line.split(" ");
                 for( int a = 0; a < i.length; a++){
                     libs.get( libs.size() - 1).books.add( books.get( Integer.parseInt( i[a])));
                 }
+
+                libCount++;
             }
             input.close();
 
@@ -81,7 +88,19 @@ public class Main {
 
     //Step 1.2
     public static void orderLibInBooksBySignUpTime(){
+        for (int i = 0; i < libCount; i++) {
+            Collections.sort(books.get(libCount).libs, new CustomComparator());
+        }
+    }
 
+    // Custom Comparator
+    public static class CustomComparator implements Comparator<Library> {
+        @Override
+        public int compare(Library o1, Library o2) {
+            Integer a = new Integer(o1.signUpTime);
+            Integer b = new Integer(o2.signUpTime);
+            return a.compareTo(b);
+        }
     }
 
     //Step 1.3
