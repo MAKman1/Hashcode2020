@@ -28,15 +28,15 @@ public class Main {
 
         //Step 1
         populateBooks();
-        for (int i = 0; i < books.get(0).libs.size(); i++ ) {
-            System.out.println(" " + books.get(0).libs.get(i).id);
-        }
-
         orderLibInBooksBySignUpTime();
         cleanUpLibraries();
-        for (int i = 0; i < books.get(0).libs.size(); i++ ) {
-            System.out.println(" " + books.get(0).libs.get(i).id);
-        }
+
+        //Step 2
+        fitInTimeLine();
+
+        //Step 3
+        outputData();
+
     }
 
     //Parsing input
@@ -149,6 +149,11 @@ public class Main {
                 return a.compareTo(b);
             }
         });
+    }
+
+
+    public static void outputData(){
+        
     }
 
 }
