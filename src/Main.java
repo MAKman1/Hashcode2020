@@ -75,6 +75,11 @@ public class Main {
 
     //Step 1.1
     public static void populateBooks(){
+        for (Library library : libs) {
+            for (Book book: library.books) {
+                book.libs.add(library);
+            }
+        }
 
     }
 
@@ -98,4 +103,10 @@ public class Main {
 //            books.get(bookCount).libs = books.get(bookCount).libs.subList(0, 1);
         }
     }
+
+    //Step 2.1
+    public static void fitInTimeLine(){
+
+    }
+
 }
