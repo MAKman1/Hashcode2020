@@ -86,7 +86,7 @@ public class Main {
     //Step 1.2
     public static void orderLibInBooksBySignUpTime(){
         for (int i = 0; i < bookCount; i++) {
-            Collections.sort(books.get(bookCount).libs, new Comparator<Library>(){
+            Collections.sort(books.get(i).libs, new Comparator<Library>(){
                 @Override
                 public int compare(Library o1, Library o2) {
                     Integer a = new Integer(o1.signUpTime);
@@ -100,7 +100,8 @@ public class Main {
     //Step 1.3
     public static void cleanUpLibraries(){
         for (int i = 0; i < bookCount; i++) {
-//            books.get(bookCount).libs = books.get(bookCount).libs.subList(0, 1);
+            ArrayList<Library> updatedLibs = new ArrayList<Library>(books.get(i).libs.subList(0, 1));
+            books.get(i).libs = updatedLibs;
         }
     }
 
